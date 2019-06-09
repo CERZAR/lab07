@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CERZAR/lab04.svg?branch=master)](https://travis-ci.org/CERZAR/lab04)
+[![Build Status](https://travis-ci.org/CERZAR/lab05.svg?branch=master)](https://travis-ci.org/CERZAR/lab05)
 
 ## Laboratory work IV
 
@@ -11,7 +11,7 @@ $ open https://travis-ci.org
 ## Tasks
 
 - [x] 1. Авторизоваться на сервисе **Travis CI** с использованием **GitHub** аккаунта
-- [x] 2. Создать публичный репозиторий с названием **lab04** на сервисе **GitHub**
+- [x] 2. Создать публичный репозиторий с названием **lab05** на сервисе **GitHub**
 - [x] 3. Ознакомиться со ссылками учебного материала
 - [x] 4. Включить интеграцию сервиса **Travis CI** с созданным репозиторием
 - [x] 5. Получить токен для **Travis CLI** с правами **repo** и **user**
@@ -164,16 +164,16 @@ Done installing documentation for multipart-post, faraday, faraday_middleware, h
 ```
 
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab03 projects/lab04            # Скачивание репозитория
-Cloning into 'projects/lab04'...
+$ git clone https://github.com/${GITHUB_USERNAME}/lab03 projects/lab05            # Скачивание репозитория
+Cloning into 'projects/lab05'...
 remote: Enumerating objects: 27, done.
 remote: Counting objects: 100% (27/27), done.
 remote: Compressing objects: 100% (19/19), done.
 remote: Total 27 (delta 4), reused 23 (delta 3), pack-reused 0
 Unpacking objects: 100% (27/27), done.
-$ cd projects/lab04                                                               # Переход в папку с репозиторием
+$ cd projects/lab05                                                               # Переход в папку с репозиторием
 $ git remote remove origin                                                        # Удаление связки с удаленным репозиторием
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab04               # Добавление связки с новым удаленным репозиторием
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05               # Добавление связки с новым удаленным репозиторием
 ```
 
 ```ShellSession
@@ -219,7 +219,7 @@ Warnings for .travis.yml:
 ```
 
 ```ShellSession
-$ sed -i '1i [![Build Status](https://travis-ci.org/CERZAR/lab04.svg?branch=master)](https://travis-ci.org/CERZAR/lab04)' README.md   # Применение преобразований
+$ sed -i '1i [![Build Status](https://travis-ci.org/CERZAR/lab05.svg?branch=master)](https://travis-ci.org/CERZAR/lab05)' README.md   # Применение преобразований
 ```
 
 ```ShellSession
@@ -239,7 +239,7 @@ Compressing objects: 100% (26/26), done.
 Writing objects: 100% (31/31), 14.05 KiB | 3.51 MiB/s, done.
 Total 31 (delta 6), reused 0 (delta 0)
 remote: Resolving deltas: 100% (6/6), done.
-To https://github.com/CERZAR/lab04
+To https://github.com/CERZAR/lab05
  * [new branch]      master -> master
 ```
 
@@ -265,13 +265,13 @@ Description: ???
 CERZAR/lab03 (active: no, admin: yes, push: yes, pull: yes)
 Description: ???
 
-CERZAR/lab04 (active: yes, admin: yes, push: yes, pull: yes)
+CERZAR/lab05 (active: yes, admin: yes, push: yes, pull: yes)
 Description: ???
 $ travis enable                   # Активация проекта
-Detected repository as CERZAR/lab04, is this correct? |yes| yes
-CERZAR/lab04: enabled :)
+Detected repository as CERZAR/lab05, is this correct? |yes| yes
+CERZAR/lab05: enabled :)
 $ travis whatsup                  # Список последних сборок
-CERZAR/lab04 passed: #1
+CERZAR/lab05 passed: #1
 $ travis branches                 # Список последних сборок по веткам проекта
 master:  #1    passed     added CI
 $ travis history                  # История cборок для проекта
@@ -281,7 +281,7 @@ Job #1.1:  added CI
 State:         passed
 Type:          push
 Branch:        master
-Compare URL:   https://github.com/CERZAR/lab04/compare/d3f614c3c40f^...0cf1e742adec
+Compare URL:   https://github.com/CERZAR/lab05/compare/d3f614c3c40f^...0cf1e742adec
 Duration:      27 sec
 Started:       2019-06-09 22:51:01
 Finished:      2019-06-09 22:51:28
