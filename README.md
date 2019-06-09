@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CERZAR/lab05.svg?branch=master)](https://travis-ci.org/CERZAR/lab05)
+[![Build Status](https://travis-ci.org/CERZAR/lab06.svg?branch=master)](https://travis-ci.org/CERZAR/lab06)
 
 ## Laboratory work V
 
@@ -10,7 +10,7 @@ $ open https://github.com/google/googletest
 
 ## Tasks
 
-- [x] 1. Создать публичный репозиторий с названием **lab05** на сервисе **GitHub**
+- [x] 1. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
 - [x] 2. Выполнить инструкцию учебного материала
 - [x] 3. Ознакомиться со ссылками учебного материала
 - [x] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
@@ -30,22 +30,22 @@ $ source scripts/activate
 ```
 
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab04 projects/lab05           # Скачивание из удаленного репозитория в указанную папку
-Cloning into 'projects/lab05'...
+$ git clone https://github.com/${GITHUB_USERNAME}/lab04 projects/lab06           # Скачивание из удаленного репозитория в указанную папку
+Cloning into 'projects/lab06'...
 remote: Enumerating objects: 37, done.
 remote: Counting objects: 100% (37/37), done.
 remote: Compressing objects: 100% (26/26), done.
 remote: Total 37 (delta 9), reused 30 (delta 6), pack-reused 0
 Unpacking objects: 100% (37/37), done.
-$ cd projects/lab05                                                              # Переход в созданную папку
+$ cd projects/lab06                                                              # Переход в созданную папку
 $ git remote remove origin                                                       # Удаление ссылки на удаленный репозиторий из локального
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05              # Указание новой ссылки на удаленный репозиторий
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06              # Указание новой ссылки на удаленный репозиторий
 ```
 
 ```ShellSession
 $ mkdir third-party                                                              # Создание папки
 $ git submodule add https://github.com/google/googletest third-party/gtest       # Скачивание удаленного репозитория в указанную папку
-Cloning into '/home/cezar/CERZAR/workspace/projects/lab05/third-party/gtest'...
+Cloning into '/home/cezar/CERZAR/workspace/projects/lab06/third-party/gtest'...
 remote: Enumerating objects: 16892, done.
 remote: Total 16892 (delta 0), reused 0 (delta 0), pack-reused 16892
 Receiving objects: 100% (16892/16892), 5.96 MiB | 1.38 MiB/s, done.
@@ -139,7 +139,7 @@ $ cmake -H. -B_build -DBUILD_TESTS=ON                                      # Э�
 -- Found Threads: TRUE  
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/cezar/CERZAR/workspace/projects/lab05/_build
+-- Build files have been written to: /home/cezar/CERZAR/workspace/projects/lab06/_build
 $ cmake --build _build                                                  # Компиляция
 Scanning dependencies of target gtest
 [  8%] Building CXX object third-party/gtest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
@@ -167,7 +167,7 @@ Scanning dependencies of target gmock_main
 [100%] Built target gmock_main
 $ cmake --build _build --target test                                 # Компиляция указанной цели
 Running tests...
-Test project /home/cezar/CERZAR/workspace/projects/lab05/_build
+Test project /home/cezar/CERZAR/workspace/projects/lab06/_build
     Start 1: check
 1/1 Test #1: check ............................   Passed    0.00 sec
 
@@ -178,7 +178,7 @@ Total Test time (real) =   0.01 sec
 
 ```ShellSession
 $ _build/check                                                       # Выполнение исполняемого файла с тестами
-Running main() from /home/cezar/CERZAR/workspace/projects/lab05/third-party/gtest/googletest/src/gtest_main.cc
+Running main() from /home/cezar/CERZAR/workspace/projects/lab06/third-party/gtest/googletest/src/gtest_main.cc
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 [----------] 1 test from Print
@@ -191,9 +191,9 @@ Running main() from /home/cezar/CERZAR/workspace/projects/lab05/third-party/gtes
 [  PASSED  ] 1 test.
 $ cmake --build _build --target test -- ARGS=--verbose              # Компиляция с выводом всей информации
 Running tests...
-UpdateCTestConfiguration  from :/home/cezar/CERZAR/workspace/projects/lab05/_build/DartConfiguration.tcl
-UpdateCTestConfiguration  from :/home/cezar/CERZAR/workspace/projects/lab05/_build/DartConfiguration.tcl
-Test project /home/cezar/CERZAR/workspace/projects/lab05/_build
+UpdateCTestConfiguration  from :/home/cezar/CERZAR/workspace/projects/lab06/_build/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/home/cezar/CERZAR/workspace/projects/lab06/_build/DartConfiguration.tcl
+Test project /home/cezar/CERZAR/workspace/projects/lab06/_build
 Constructing a list of tests
 Done constructing a list of tests
 Updating test list for fixtures
@@ -203,9 +203,9 @@ Checking test dependency graph end
 test 1
     Start 1: check
 
-1: Test command: /home/cezar/CERZAR/workspace/projects/lab05/_build/check
+1: Test command: /home/cezar/CERZAR/workspace/projects/lab06/_build/check
 1: Test timeout computed to be: 10000000
-1: Running main() from /home/cezar/CERZAR/workspace/projects/lab05/third-party/gtest/googletest/src/gtest_main.cc
+1: Running main() from /home/cezar/CERZAR/workspace/projects/lab06/third-party/gtest/googletest/src/gtest_main.cc
 1: [==========] Running 1 test from 1 test case.
 1: [----------] Global test environment set-up.
 1: [----------] 1 test from Print
@@ -224,7 +224,7 @@ Total Test time (real) =   0.00 sec
 ```
 
 ```ShellSession
-$ gsed -i 's/lab04/lab05/g' README.md                                                        # Замена левой строки на правую
+$ gsed -i 's/lab04/lab06/g' README.md                                                        # Замена левой строки на правую
 $ gsed -i 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml            # Дописывание к найденной по вхождению левой строки строке правой строки
 $ gsed -i '/cmake --build _build --target install/a\                                         # Дописывание правой строки после найденной левой строки
 - cmake --build _build --target test -- ARGS=--verbose
@@ -250,7 +250,7 @@ index 85b7a74..fb4c6cd 100644
  
  - [x] 1. Авторизоваться на сервисе **Travis CI** с использованием **GitHub** аккаунта
 -- [x] 2. Создать публичный репозиторий с названием **lab04** на сервисе **GitHub**
-+- [x] 2. Создать публичный репозиторий с названием **lab05** на сервисе **GitHub**
++- [x] 2. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
  - [x] 3. Ознакомиться со ссылками учебного материала
  - [x] 4. Включить интеграцию сервиса **Travis CI** с созданным репозиторием
  - [x] 5. Получить токен для **Travis CLI** с правами **repo** и **user**
@@ -269,7 +269,7 @@ Compressing objects: 100% (41/41), done.
 Writing objects: 100% (48/48), 21.39 KiB | 3.06 MiB/s, done.
 Total 48 (delta 14), reused 0 (delta 0)
 remote: Resolving deltas: 100% (14/14), done.
-To https://github.com/CERZAR/lab05
+To https://github.com/CERZAR/lab06
  * [new branch]      master -> master
 ```
 
@@ -285,15 +285,15 @@ Username: CERZAR
 Password for CERZAR: ********
 Successfully logged in as CERZAR!
 $ travis enable                                          # Включение непрерывной интеграции для репозитория
-Detected repository as CERZAR/lab05, is this correct? |yes| yes
-CERZAR/lab05: enabled :)
+Detected repository as CERZAR/lab06, is this correct? |yes| yes
+CERZAR/lab06: enabled :)
 ```
 
 ```ShellSession
 $ mkdir artifacts                                        # Создание директории
 $ sleep 20s && gnome-screenshot --file artifacts/screenshot.png      
 # for macOS: $ screencapture -T 20 artifacts/screenshot.png
-# open https://github.com/${GITHUB_USERNAME}/lab05
+# open https://github.com/${GITHUB_USERNAME}/lab06
 ```
 
 ## Report
