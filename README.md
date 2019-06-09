@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/CERZAR/lab06.svg?branch=master)](https://travis-ci.org/CERZAR/lab06)
 
-## Laboratory work V
+## Laboratory work VI
 
-Данная лабораторная работа посвещена изучению фреймворков для тестирования на примере **GTest**
+Данная лабораторная работа посвещена изучению средств пакетирования на примере **CPack**
 
 ```ShellSession
-$ open https://github.com/google/googletest
+$ open https://cmake.org/Wiki/CMake:CPackPackageGenerators
 ```
 
 ## Tasks
@@ -18,103 +18,181 @@ $ open https://github.com/google/googletest
 ## Tutorial
 
 ```ShellSession
-$ export GITHUB_USERNAME=CERZAR        # Переменная окружения
-$ alias gsed=sed # for *-nix system    # Синоним команды gsed
+$ export GITHUB_USERNAME=CERZAR                           # Инициализация переменной GITHUB_USERNAME
+$ export GITHUB_EMAIL=stavropoltsev.t@gmail.com           # Инициализация переменной GITHUB_EMAIL
+$ alias edit=nano                                         # Синоним команды edit
+$ alias gsed=sed                                          # Синоним команды gsed
 ```
 
 ```ShellSession
-$ cd ${GITHUB_USERNAME}/workspace
-$ pushd .
+$ cd ${GITHUB_USERNAME}/workspace                         # Перемещение в указанную папку
+$ pushd .                                                 # Сохранение указанной папки
 ~/CERZAR/workspace ~/CERZAR/workspace
-$ source scripts/activate
+$ source scripts/activate                                 # Выполнение скрипта активации
 ```
 
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab04 projects/lab06           # Скачивание из удаленного репозитория в указанную папку
+$ git clone https://github.com/${GITHUB_USERNAME}/lab05 projects/lab06      # Копирование файлов из удаленного репозитория
 Cloning into 'projects/lab06'...
-remote: Enumerating objects: 37, done.
-remote: Counting objects: 100% (37/37), done.
-remote: Compressing objects: 100% (26/26), done.
-remote: Total 37 (delta 9), reused 30 (delta 6), pack-reused 0
-Unpacking objects: 100% (37/37), done.
-$ cd projects/lab06                                                              # Переход в созданную папку
-$ git remote remove origin                                                       # Удаление ссылки на удаленный репозиторий из локального
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06              # Указание новой ссылки на удаленный репозиторий
+remote: Enumerating objects: 51, done.
+remote: Counting objects: 100% (51/51), done.
+remote: Compressing objects: 100% (30/30), done.
+remote: Total 51 (delta 15), reused 47 (delta 14), pack-reused 0
+Unpacking objects: 100% (51/51), done.
+$ cd projects/lab06                                                         # Переход в папку с проектом
+$ git remote remove origin                                                  # Удаление ссылки на старый удаленный репозиторий
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06         # Добавление ссылки на новый удаленный репозиторий
 ```
 
 ```ShellSession
-$ mkdir third-party                                                              # Создание папки
-$ git submodule add https://github.com/google/googletest third-party/gtest       # Скачивание удаленного репозитория в указанную папку
-Cloning into '/home/cezar/CERZAR/workspace/projects/lab06/third-party/gtest'...
-remote: Enumerating objects: 16892, done.
-remote: Total 16892 (delta 0), reused 0 (delta 0), pack-reused 16892
-Receiving objects: 100% (16892/16892), 5.96 MiB | 1.38 MiB/s, done.
-Resolving deltas: 100% (12445/12445), done.
-$ cd third-party/gtest && git checkout release-1.8.1 && cd ../..                 # Переход в указанную папку, переход в указанную ветку, возврат
-Note: checking out 'release-1.8.1'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
-
-  git checkout -b <new-branch-name>
-
-HEAD is now at 2fe3bd99 Merge pull request #1433 from dsacre/fix-clang-warnings
-$ git add third-party/gtest                                                    # Фиксация изменений
-$ git commit -m"added gtest framework"                                         # Коммит зафиксированных изменений
-[master 1466b76] added gtest framework
- 2 files changed, 4 insertions(+)
- create mode 100644 .gitmodules
- create mode 160000 third-party/gtest
-```
-
-```ShellSession
-$ gsed -i '/option(BUILD_EXAMPLES "Build examples" OFF)/a\                    # Вставить вторую строку после указанной первой строки
-option(BUILD_TESTS "Build tests" OFF)
+$ gsed -i '/project(print)/a\                         # Дописывание в указанный файл указанной строки
+set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")
 ' CMakeLists.txt
-$ cat >> CMakeLists.txt <<EOF                                                 # Дописывание в CMakeLists.txt указанного кода
+$ gsed -i '/project(print)/a\                         # Дописывание в указанный файл указанной строки
+set(PRINT_VERSION\
+  \${PRINT_VERSION_MAJOR}.\${PRINT_VERSION_MINOR}.\${PRINT_VERSION_PATCH}.\${PRINT_VERSION_TWEAK})
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\                         # Дописывание в указанный файл указанной строки
+set(PRINT_VERSION_TWEAK 0)
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\                         # Дописывание в указанный файл указанной строки
+set(PRINT_VERSION_PATCH 0)
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\                         # Дописывание в указанный файл указанной строки
+set(PRINT_VERSION_MINOR 1)
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\                         # Дописывание в указанный файл указанной строки
+set(PRINT_VERSION_MAJOR 0)
+' CMakeLists.txt
+$ git diff                                            # Просмотр отличий локальной версии от последнего коммита
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index aa7a323..71b64e3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,13 @@ option(BUILD_EXAMPLES "Build examples" OFF)
+ option(BUILD_TESTS "Build tests" OFF)
+ 
+ project(print)
++set(PRINT_VERSION_MAJOR 0)
++set(PRINT_VERSION_MINOR 1)
++set(PRINT_VERSION_PATCH 0)
++set(PRINT_VERSION_TWEAK 0)
++set(PRINT_VERSION
++  ${PRINT_VERSION_MAJOR}.${PRINT_VERSION_MINOR}.${PRINT_VERSION_PATCH}.${PRINT_VERSION_TWEAK})
++set(PRINT_VERSION_STRING "v${PRINT_VERSION}")
+ 
+ add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
+```
 
-if(BUILD_TESTS)
-  enable_testing()
-  add_subdirectory(third-party/gtest)
-  file(GLOB \${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-  add_executable(check \${\${PROJECT_NAME}_TEST_SOURCES})
-  target_link_libraries(check \${PROJECT_NAME} gtest_main)
-  add_test(NAME check COMMAND check)
-endif()
+```ShellSession
+$ touch DESCRIPTION && edit DESCRIPTION                   # Создание и редактирование DESCRIPTION
+$ touch ChangeLog.md                                      # Создание ChangeLog.md
+$ export DATE="`LANG=en_US date +'%a %b %d %Y'`"          # Создание переменной DATE
+$ cat > ChangeLog.md <<EOF                                # Запись в файл ChangeLog.md
+* ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
+- Initial RPM release
 EOF
 ```
 
 ```ShellSession
-$ mkdir tests                                                                 # Создание указанной папки
-$ cat > tests/test1.cpp <<EOF                                                 # Создание указанного файла с указанным кодом
-#include <print.hpp>
-
-#include <gtest/gtest.h>
-
-TEST(Print, InFileStream)
-{
-  std::string filepath = "file.txt";
-  std::string text = "hello";
-  std::ofstream out{filepath};
-
-  print(text, out);
-  out.close();
-
-  std::string result;
-  std::ifstream in{filepath};
-  in >> result;
-
-  EXPECT_EQ(result, text);
-}
+$ cat > CPackConfig.cmake <<EOF                           # Запись в указанный файл указанной строки
+include(InstallRequiredSystemLibraries)
 EOF
 ```
 
 ```ShellSession
-$ cmake -H. -B_build -DBUILD_TESTS=ON                                      # Этап конфигурирование
+$ cat >> CPackConfig.cmake <<EOF                          # Дописывание в указанный файл указанных строк
+set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
+set(CPACK_PACKAGE_VERSION_MAJOR \${PRINT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR \${PRINT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH \${PRINT_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_TWEAK \${PRINT_VERSION_TWEAK})
+set(CPACK_PACKAGE_VERSION \${PRINT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static C++ library for printing")
+EOF
+```
+
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF                         # Дописывание в указанный файл указанных строк
+
+set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+EOF
+```
+
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF                         # Дописывание в указанный файл указанных строк
+
+set(CPACK_RPM_PACKAGE_NAME "print-devel")
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "print")
+set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+set(CPACK_RPM_PACKAGE_RELEASE 1)
+EOF
+```
+
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF                         # Дописывание в указанный файл указанных строк
+
+set(CPACK_DEBIAN_PACKAGE_NAME "libprint-dev")
+set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
+set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+EOF
+```
+
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF                         # Дописывание в указанный файл указанных строк
+
+include(CPack)
+EOF
+```
+
+```ShellSession
+$ cat >> CMakeLists.txt <<EOF                         # Дописывание в указанный файл указанных строк
+
+include(CPackConfig.cmake)
+EOF
+```
+
+```ShellSession
+$ gsed -i 's/lab05/lab06/g' README.md                 # Замена левого набора символов на правый
+```
+
+```ShellSession
+$ git add .                                           # Фиксация изменений
+$ git commit -m"added cpack config"                   # Коммит зафиксированных изменений
+[master 3fe39fc] added cpack config
+ 5 files changed, 51 insertions(+), 21 deletions(-)
+ create mode 100644 CPackConfig.cmake
+ create mode 100644 ChangeLog.md
+ create mode 100644 DESCRIPTION
+$ git tag v0.1.0.0                                    # Установка тэга
+$ git push origin master –tags                        # Отправка изменений
+Username for 'https://github.com': CERZAR
+Password for 'https://CERZAR@github.com': 
+Enumerating objects: 57, done.
+Counting objects: 100% (57/57), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (50/50), done.
+Writing objects: 100% (57/57), 28.10 KiB | 3.51 MiB/s, done.
+Total 57 (delta 17), reused 0 (delta 0)
+remote: Resolving deltas: 100% (17/17), done.
+To https://github.com/CERZAR/lab06
+ * [new branch]      master -> master
+ * [new tag]         v0.1.0.0 -> v0.1.0.0
+```
+
+```ShellSession
+$ travis login –auto                                      # Авторизация в Travis CI
+Successfully logged in as CERZAR!
+$ travis enable                                           # Включение обработки в Travis CI
+Detected repository as CERZAR/lab06, is this correct? |yes| yes
+CERZAR/lab06: enabled :)
+```
+
+```ShellSession
+$ cmake -H. -B_build                                      # Сборка (CMakeLists.txt берется из текущей директории, сборка в директорию _build)
 -- The C compiler identification is GNU 8.3.0
 -- The CXX compiler identification is GNU 8.3.0
 -- Check for working C compiler: /usr/bin/cc
@@ -129,178 +207,56 @@ $ cmake -H. -B_build -DBUILD_TESTS=ON                                      # Э�
 -- Detecting CXX compiler ABI info - done
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Found PythonInterp: /usr/bin/python (found version "3.7.3") 
--- Looking for pthread.h
--- Looking for pthread.h - found
--- Looking for pthread_create
--- Looking for pthread_create - not found
--- Check if compiler accepts -pthread
--- Check if compiler accepts -pthread - yes
--- Found Threads: TRUE  
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/cezar/CERZAR/workspace/projects/lab06/_build
-$ cmake --build _build                                                  # Компиляция
-Scanning dependencies of target gtest
-[  8%] Building CXX object third-party/gtest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
-[ 16%] Linking CXX static library libgtest.a
-[ 16%] Built target gtest
+$ cmake --build _build                                   # Компиляция в директории _build
 Scanning dependencies of target print
-[ 25%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
-[ 33%] Linking CXX static library libprint.a
-[ 33%] Built target print
-Scanning dependencies of target gtest_main
-[ 41%] Building CXX object third-party/gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
-[ 50%] Linking CXX static library libgtest_main.a
-[ 50%] Built target gtest_main
-Scanning dependencies of target check
-[ 58%] Building CXX object CMakeFiles/check.dir/tests/test1.cpp.o
-[ 66%] Linking CXX executable check
-[ 66%] Built target check
-Scanning dependencies of target gmock
-[ 75%] Building CXX object third-party/gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
-[ 83%] Linking CXX static library libgmock.a
-[ 83%] Built target gmock
-Scanning dependencies of target gmock_main
-[ 91%] Building CXX object third-party/gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
-[100%] Linking CXX static library libgmock_main.a
-[100%] Built target gmock_main
-$ cmake --build _build --target test                                 # Компиляция указанной цели
-Running tests...
-Test project /home/cezar/CERZAR/workspace/projects/lab06/_build
-    Start 1: check
-1/1 Test #1: check ............................   Passed    0.00 sec
-
-100% tests passed, 0 tests failed out of 1
-
-Total Test time (real) =   0.01 sec
+[ 50%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
+[100%] Linking CXX static library libprint.a
+[100%] Built target print
+$ cd _build                                               # Переход в указанную директорию
+$ cpack -G "TGZ"                                          # Упаковка с использованием CPack
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print
+CPack: Create package
+CPack: - package: /home/cezar/CERZAR/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+$ cd ..                                                   # Переход на уровень выше
 ```
 
 ```ShellSession
-$ _build/check                                                       # Выполнение исполняемого файла с тестами
-Running main() from /home/cezar/CERZAR/workspace/projects/lab06/third-party/gtest/googletest/src/gtest_main.cc
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-[----------] 1 test from Print
-[ RUN      ] Print.InFileStream
-[       OK ] Print.InFileStream (0 ms)
-[----------] 1 test from Print (0 ms total)
-
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (0 ms total)
-[  PASSED  ] 1 test.
-$ cmake --build _build --target test -- ARGS=--verbose              # Компиляция с выводом всей информации
-Running tests...
-UpdateCTestConfiguration  from :/home/cezar/CERZAR/workspace/projects/lab06/_build/DartConfiguration.tcl
-UpdateCTestConfiguration  from :/home/cezar/CERZAR/workspace/projects/lab06/_build/DartConfiguration.tcl
-Test project /home/cezar/CERZAR/workspace/projects/lab06/_build
-Constructing a list of tests
-Done constructing a list of tests
-Updating test list for fixtures
-Added 0 tests to meet fixture requirements
-Checking test dependency graph...
-Checking test dependency graph end
-test 1
-    Start 1: check
-
-1: Test command: /home/cezar/CERZAR/workspace/projects/lab06/_build/check
-1: Test timeout computed to be: 10000000
-1: Running main() from /home/cezar/CERZAR/workspace/projects/lab06/third-party/gtest/googletest/src/gtest_main.cc
-1: [==========] Running 1 test from 1 test case.
-1: [----------] Global test environment set-up.
-1: [----------] 1 test from Print
-1: [ RUN      ] Print.InFileStream
-1: [       OK ] Print.InFileStream (0 ms)
-1: [----------] 1 test from Print (0 ms total)
-1: 
-1: [----------] Global test environment tear-down
-1: [==========] 1 test from 1 test case ran. (0 ms total)
-1: [  PASSED  ] 1 test.
-1/1 Test #1: check ............................   Passed    0.00 sec
-
-100% tests passed, 0 tests failed out of 1
-
-Total Test time (real) =   0.00 sec
+$ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"              # Сборка (CMakeLists.txt берется из текущей директории, сборка в директорию _build). Установка
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/cezar/CERZAR/workspace/projects/lab06/_build
+$ cmake --build _build --target package                   # Компиляция цели package
+[100%] Built target print
+Run CPack packaging tool...
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print
+CPack: Create package
+CPack: - package: /home/cezar/CERZAR/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
 ```
 
 ```ShellSession
-$ gsed -i 's/lab04/lab06/g' README.md                                                        # Замена левой строки на правую
-$ gsed -i 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml            # Дописывание к найденной по вхождению левой строки строке правой строки
-$ gsed -i '/cmake --build _build --target install/a\                                         # Дописывание правой строки после найденной левой строки
-- cmake --build _build --target test -- ARGS=--verbose
-' .travis.yml
-```
+$ mkdir artifacts                                         # Создание указанной папки
+$ mv _build/*.tar.gz artifacts                            # Перемещение собранного пакета
+$ tree artifacts                                          # Отображения дерева указанной папки
+artifacts
+└── print-0.1.0.0-Linux.tar.gz
 
-```ShellSession
-$ travis lint                                            # Проверка
-[x] value for addons section is empty, dropping
-[x] in addons section: unexpected key apt, dropping
-```
-
-```ShellSession
-$ git add .travis.yml                                    # Фиксация указанного файла
-$ git add tests                                          # Фиксация указанного файла
-$ git add –p                                             # Фиксация указанного файла
-diff --git a/README.md b/README.md
-index 85b7a74..fb4c6cd 100644
---- a/README.md
-+++ b/README.md
-@@ -11,7 +11,7 @@ $ open https://travis-ci.org
- ## Tasks
- 
- - [x] 1. Авторизоваться на сервисе **Travis CI** с использованием **GitHub** аккаунта
--- [x] 2. Создать публичный репозиторий с названием **lab04** на сервисе **GitHub**
-+- [x] 2. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
- - [x] 3. Ознакомиться со ссылками учебного материала
- - [x] 4. Включить интеграцию сервиса **Travis CI** с созданным репозиторием
- - [x] 5. Получить токен для **Travis CLI** с правами **repo** и **user**
-Stage this hunk [y,n,q,a,d,j,J,g,/,e,?]? a
-$ git commit -m"added tests"                             # Коммит зафиксированных изменений
-[master 14a6f08] added tests
- 4 files changed, 44 insertions(+), 14 deletions(-)
- create mode 100644 tests/test1.cpp
-$ git push origin master                                 # Отправка изменений в удаленный репозиторий
-Username for 'https://github.com': CERZAR
-Password for 'https://CERZAR@github.com': 
-Enumerating objects: 48, done.
-Counting objects: 100% (48/48), done.
-Delta compression using up to 4 threads
-Compressing objects: 100% (41/41), done.
-Writing objects: 100% (48/48), 21.39 KiB | 3.06 MiB/s, done.
-Total 48 (delta 14), reused 0 (delta 0)
-remote: Resolving deltas: 100% (14/14), done.
-To https://github.com/CERZAR/lab06
- * [new branch]      master -> master
-```
-
-```ShellSession
-$ travis login –auto                                     # Авторизация
-We need your GitHub login to identify you.
-This information will not be sent to Travis CI, only to api.github.com.
-The password will not be displayed.
-
-Try running with --github-token or --auto if you don't want to enter your password anyway.
-
-Username: CERZAR
-Password for CERZAR: ********
-Successfully logged in as CERZAR!
-$ travis enable                                          # Включение непрерывной интеграции для репозитория
-Detected repository as CERZAR/lab06, is this correct? |yes| yes
-CERZAR/lab06: enabled :)
-```
-
-```ShellSession
-$ mkdir artifacts                                        # Создание директории
-$ sleep 20s && gnome-screenshot --file artifacts/screenshot.png      
-# for macOS: $ screencapture -T 20 artifacts/screenshot.png
-# open https://github.com/${GITHUB_USERNAME}/lab06
+0 directories, 1 file
 ```
 
 ## Report
 
 ```ShellSession
 $ popd
-$ export LAB_NUMBER=05
+$ export LAB_NUMBER=06
 $ git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER}
 $ mkdir reports/lab${LAB_NUMBER}
 $ cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md
@@ -311,19 +267,57 @@ $ gistup -m "lab${LAB_NUMBER}"
 
 ## Homework
 
-### Задание
-1. Создайте `CMakeList.txt` для библиотеки *banking*.
-2. Создайте модульные тесты на классы `Transaction` и `Account`.
-    * Используйте mock-объекты.
-    * Покрытие кода должно составлять 100%.
-3. Настройте сборочную процедуру на **TravisCI**.
-4. Настройте [Coveralls.io](https://coveralls.io/).
+После того, как вы настроили взаимодействие с системой непрерывной интеграции,</br>
+обеспечив автоматическую сборку и тестирование ваших изменений, стоит задуматься</br>
+о создание пакетов для измениний, которые помечаются тэгами (см. вкладку [releases](https://github.com/tp-labs/lab06/releases)).</br>
+Пакет должен содержать приложение _solver_ из [предыдущего задания](https://github.com/tp-labs/lab03#задание-1)
+Таким образом, каждый новый релиз будет состоять из следующих компонентов:
+- архивы с файлами исходного кода (`.tar.gz`, `.zip`)
+- пакеты с бинарным файлом _solver_ (`.deb`, `.rpm`, `.msi`, `.dmg`)
+
+В качестве подсказки:
+```bash
+$ cat .travis.yml
+os: osx
+script:
+...
+- cpack -G DragNDrop # dmg
+
+$ cat .travis.yml
+os: linux
+script:
+...
+- cpack -G DEB # deb
+
+$ cat .travis.yml
+os: linux
+addons:
+  apt:
+    packages:
+    - rpm
+script:
+...
+- cpack -G RPM # rpm
+
+$ cat appveyor.yml
+platform:
+- x86
+- x64
+build_script:
+...
+- cpack -G WIX # msi
+```
+
+Для этого нужно добавить ветвление в конфигурационные файлы для **CI** со следующей логикой:</br>
+если **commit** помечен тэгом, то необходимо собрать пакеты (`DEB, RPM, WIX, DragNDrop, ...`) </br>
+и разместить их на сервисе **GitHub**. (см. пример для [Travi CI](https://docs.travis-ci.com/user/deployment/releases))</br>
 
 ## Links
 
-- [C++ CI: Travis, CMake, GTest, Coveralls & Appveyor](http://david-grs.github.io/cpp-clang-travis-cmake-gtest-coveralls-appveyor/)
-- [Boost.Tests](http://www.boost.org/doc/libs/1_63_0/libs/test/doc/html/)
-- [Catch](https://github.com/catchorg/Catch2)
+- [DMG](https://cmake.org/cmake/help/latest/module/CPackDMG.html)
+- [DEB](https://cmake.org/cmake/help/latest/module/CPackDeb.html)
+- [RPM](https://cmake.org/cmake/help/latest/module/CPackRPM.html)
+- [NSIS](https://cmake.org/cmake/help/latest/module/CPackNSIS.html)
 
 ```
 Copyright (c) 2015-2019 The ISC Authors
